@@ -6,16 +6,11 @@ var {Route, Router, IndexRoute, hashHistory} = require('react-router');
 var Firebase = require('Firebase');
 var actions = require('actions');
 var store = require('configureStore').configure();
-var TodoAPI = require('TodoAPI');
 
 store.subscribe(() => {
   var state = store.getState();
   console.log('New state', state);
-  TodoAPI.setTodos(state.todos);
 });
-
-var initialTodos = TodoAPI.getTodos();
-store.dispatch(actions.addTodos(initialTodos));
 
 // Load foundation
 $(document).foundation();

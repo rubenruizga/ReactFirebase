@@ -9,7 +9,7 @@ export var FirebaseActions = React.createClass({
     return (
       <div className="container__header">
         <button type="button" className="button expanded"onClick={() => {
-            dispatch(actions.toggleTodo("-KluJPZ94_CfpjtsMdOY"));
+            dispatch(actions.testAction("-KluJPZ94_CfpjtsMdOY"));
           }}>Read</button>
         <button type="button" className="button expanded">Write</button>
       </div>

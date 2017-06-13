@@ -1,9 +1,4 @@
 var React = require('react');
-var uuid = require('node-uuid');
-var moment = require('moment');
-
-import TodoList from 'TodoList'
-import AddTodo from 'AddTodo';
 import FirebaseActions from 'FirebaseActions';
 
 var Firebase = React.createClass({
