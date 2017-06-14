@@ -1,60 +1,40 @@
+import configureMockStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
+
 var expect = require('expect');
 var actions = require('actions');
 
+var createMockStore = configureMockStore([thunk]);
 describe('Actions', () => {
-  it('should generate search text action', () => {
+
+  it('should generate add new data action', () => {
     var action = {
-      type: 'SET_SEARCH_TEXT',
-      searchText: 'Some search text'
+      type: 'ADD_DATA',
+      data: {
+        text: "Text",
+        completed: false,
+        createdAt: "Moment",
+        completedAt: "MomentsAfter"
+      }
     };
-    var res = actions.setSearchText(action.searchText);
+    var res = actions.addData(action.data)
 
     expect(res).toEqual(action);
   });
 
-  it('should generate toggle show completed action', () => {
-    var action = {
-      type: 'TOGGLE_SHOW_COMPLETED'
-    };
-    var res = actions.toggleShowCompleted();
+  it('should create data and dispatch ADD_DATA', (done) => {
+    const store = createMockStore({});
+    const dataText = 'My text from test';
 
-    expect(res).toEqual(action);
-  });
-
-  it('should generate add todo action', () => {
-    var action = {
-      type: 'ADD_TODO',
-      text: 'Thing to do'
-    };
-    var res = actions.addTodo(action.text);
-
-    expect(res).toEqual(action);
-  });
-
-  it('should generate add todos action object', () => {
-    var todos = [{
-      id: '111',
-      text: 'anything',
-      completed: false,
-      completedAt: undefined,
-      createdAt: 33000
-    }];
-    var action = {
-      type: 'ADD_TODOS',
-      todos
-    };
-    var res = actions.addTodos(todos);
-
-    expect(res).toEqual(action);
-  });
-
-  it('should generate toggle todo action', () => {
-    var action = {
-      type: 'TOGGLE_TODO',
-      id: '123'
-    };
-    var res = actions.toggleTodo(action.id);
-
-    expect(res).toEqual(action);
+    store.dispatch(actions.startWriting(dataText)).then(() => {
+      const actions = store.getActions();
+      expect(actions[0].toInclude({
+        type: 'ADD_DATA'
+      }));
+      expect(actions[0].data).toInclude({
+        text: dataText
+      })
+      done();
+    }).catch(done);
   });
 });
