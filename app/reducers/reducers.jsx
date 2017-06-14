@@ -9,10 +9,10 @@ export var firebaseReducer = (state = [], action) => {
         text: "text"
       });
 
-      case 'ADD_TODO':
+      case 'ADD_DATA':
         return [
           ...state,
-          action.todo
+          action.data
         ];
     default:
       return state;

@@ -7,27 +7,27 @@ export var testAction = (id) => {
   };
 };
 
-export var addTodo = (todo) => {
+export var addData= (data) => {
   return {
-    type: 'ADD_TODO',
-    todo
+    type: 'ADD_DATA',
+    data
   };
 };
 
-export var startAddTodo = (text) => {
+export var startWriting = (text) => {
   return (dispatch, getState) => {
-    var todo = {
+    var data = {
       text,
       completed: false,
       createdAt: "Moment",
       completedAt: "MomentsAfter"
     };
-    var todoRef = firebaseRef.child('todos').push(todo);
+    var dataRef = firebaseRef.child('data').push(data);
 
-    todoRef.then(() => {
-      dispatch(addTodo({
-        ...todo,
-        id: todoRef.key
+    dataRef.then(() => {
+      dispatch(addData({
+        ...data,
+        id: dataRef.key
       }));
     });
   };
