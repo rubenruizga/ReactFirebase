@@ -8,10 +8,12 @@ export var FirebaseActions = React.createClass({
 
     return (
       <div className="container__header">
-        <button type="button" className="button expanded"onClick={() => {
-            dispatch(actions.startWriting("Text from FirebaseActions"));
+        <button type="button" className="button expanded" onClick={() => {
+            dispatch(actions.startReading("Text from FirebaseActions"));
           }}>Read</button>
-        <button type="button" className="button expanded">Write</button>
+        <button type="button" className="button expanded" onClick={() => {
+            dispatch(actions.startWriting("Text from FirebaseActions"));
+          }}>Write</button>
       </div>
     )
   }
