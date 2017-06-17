@@ -1,12 +1,20 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 var {Provider} = require('react-redux');
-var {Route, Router, IndexRoute, hashHistory} = require('react-router');
+var {hashHistory} = require('react-router');
 
 var actions = require('actions');
 var store = require('configureStore').configure();
-import Login from 'Login';
-import Firebase from 'Firebase';
+import firebase from 'app/firebase';
+import router from 'app/router';
+
+firebase.auth().onAuthStateChanged((user) => {
+  if (user) {
+    hashHistory.push('/main');
+  } else {
+    hashHistory.push('/');
+  }
+});
 
 store.subscribe(() => {
   var state = store.getState();
@@ -21,12 +29,7 @@ require('style!css!sass!applicationStyles')
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router history={hashHistory}>
-      <Route path="/">
-        <Route path="firebase" component={Firebase}/>
-        <IndexRoute component={Login}/>
-      </Route>
-    </Router>
+    {router}
   </Provider>,
   document.getElementById('app')
 );

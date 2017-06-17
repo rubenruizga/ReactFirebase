@@ -4,7 +4,7 @@ import * as Redux from 'react-redux';
 import * as actions from 'actions';
 import FirebaseActions from 'FirebaseActions';
 
-export var Firebase = React.createClass({
+export var Main = React.createClass({
   onLogout(e) {
     var {dispatch} = this.props;
     e.preventDefault();
@@ -18,7 +18,7 @@ export var Firebase = React.createClass({
           <a href="#" onClick={this.onLogout}>Logout</a>
         </div>
 
-        <h1 className="page-title">React to Firebase</h1>
+        <h1 className="page-title">React to Main</h1>
 
         <div className="row">
           <div className="column small-centered small-11 medium-6 large-5">
@@ -32,4 +32,4 @@ export var Firebase = React.createClass({
   }
 });
 
-export default Redux.connect()(Firebase);
+export default Redux.connect()(Main);
