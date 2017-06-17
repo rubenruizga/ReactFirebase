@@ -1,4 +1,4 @@
-import firebase, {firebaseRef} from 'app/firebase/';
+import firebase, {firebaseRef, githubProvider} from 'app/firebase/';
 
 export var testAction = (id) => {
   return {
@@ -58,6 +58,24 @@ export var startReading = (text) => {
         ...data,
         id: dataRef.key
       }));
+    });
+  };
+};
+
+export var startLogin = () => {
+  return (dispatch, getState) => {
+    firebase.auth().signInWithPopup(githubProvider).then((result) => {
+      console.log('Auth worked', result);
+    }, (error) => {
+      console.log('Unable to auth', error);
+    });
+  };
+};
+
+export var startLogout = () => {
+  return (dispatch, getState) => {
+    return firebase.auth().signOut().then(() => {
+      console.log('Logged out!');
     });
   };
 };
