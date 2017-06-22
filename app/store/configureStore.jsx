@@ -1,11 +1,12 @@
 import * as redux from 'redux';
 import thunk from 'redux-thunk';
 
-import {firebaseReducer} from 'reducers';
+import {firebaseReducer, authReducer} from 'reducers';
 
 export var configure = (initialState = {}) => {
   var reducer = redux.combineReducers({
-    firebase: firebaseReducer
+    firebase: firebaseReducer,
+    auth: authReducer
   });
 
   var store = redux.createStore(reducer, initialState, redux.compose(

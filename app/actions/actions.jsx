@@ -18,11 +18,13 @@ export var startWriting = (text) => {
   return (dispatch, getState) => {
     var data = {
       text,
-      completed: false,
-      createdAt: "Moment",
-      completedAt: "MomentsAfter"
+      name: "Ruben",
+      admin: true,
+      age: 23,
+      email: "e9.ruben@gmail.com"
     };
-    var dataRef = firebaseRef.child('data').push(data);
+    var uid = getState().auth.uid;
+    var dataRef = firebaseRef.child(`users/${uid}/data`).push(data);
 
     dataRef.then(() => {
       dispatch(addData({
@@ -35,7 +37,8 @@ export var startWriting = (text) => {
 
 export var startReading = (text) => {
   return (dispatch, getState) => {
-    var dataRef = firebaseRef.child('data')
+    var uid = getState().auth.uid;
+    var dataRef = firebaseRef.child(`users/${uid}/data`)
 
     return dataRef.once('value').then((snapshot) => {
       var data =snapshot.val() || {};
@@ -62,6 +65,13 @@ export var startReading = (text) => {
   };
 };
 
+export var login = (uid) => {
+  return {
+    type: 'LOGIN',
+    uid
+  };
+};
+
 export var startLogin = () => {
   return (dispatch, getState) => {
     firebase.auth().signInWithPopup(githubProvider).then((result) => {
@@ -69,6 +79,12 @@ export var startLogin = () => {
     }, (error) => {
       console.log('Unable to auth', error);
     });
+  };
+};
+
+export var logout = () => {
+  return {
+    type: 'LOGOUT'
   };
 };
 
