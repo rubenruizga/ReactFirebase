@@ -9,11 +9,14 @@ export var firebaseReducer = (state = [], action) => {
         text: "text"
       });
 
-      case 'ADD_DATA':
-        return [
-          ...state,
-          action.data
-        ];
+    case 'ADD_DATA':
+      return [
+        ...state,
+        action.data
+      ];
+    case 'LOGOUT':
+      return [];
+      break;
     default:
       return state;
   }

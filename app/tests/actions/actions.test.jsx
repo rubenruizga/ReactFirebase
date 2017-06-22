@@ -38,3 +38,48 @@ describe('Actions', () => {
     }).catch(done);
   });
 });
+
+describe('Tests with firebase todos', () => {
+  var testDataRef;
+  var uid;
+  var dataRef;
+
+  beforeEach((done) => {
+    firebase.auth().signInAnonymously().then((user) => {
+      uid = user.uid;
+      dataRef = firebaseRef.child(`users/${uid}/data`);
+
+      return dataRef.remove();
+    }).then(() => {
+      testDataRef = dataRef.push();
+
+      return testDataRef.set({
+        text: 'Something to do',
+        completed: false,
+        createdAt: 23453453
+      });
+    })
+    .then(() => done())
+    .catch(done);
+  });
+
+  afterEach((done) => {
+    dataRef.remove().then(() => done());
+  });
+
+  it('should create data and dispatch ADD_TODO', (done) => {
+    const store = createMockStore({auth: {uid}});
+    const dataText = 'My data item';
+
+    store.dispatch(actions.startAddData(todoText)).then(() => {
+      const actions = store.getActions();
+      expect(actions[0]).toInclude({
+        type: 'ADD_DATA'
+      });
+      expect(actions[0].data).toInclude({
+        text: dataText
+      });
+      done();
+    }).catch(done);
+  });
+});
