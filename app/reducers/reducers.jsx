@@ -26,7 +26,7 @@ export var authReducer = (state = {}, action) => {
         uid: action.uid
       };
     case 'LOGOUT':
-      return {};
+      return [];
       break;
     default:
       return state;
